@@ -11,7 +11,15 @@
   <?php wp_body_open(); ?>
 
   <div class="side-menu">
-    <button class="menu-item mmit1 side-menu-button" id="menuToggle" type="button" aria-expanded="false" aria-controls="megaMenu">
+    <button
+      class="menu-item mmit1 side-menu-button"
+      id="menuToggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="megaMenu"
+      aria-label="<?php esc_attr_e('Open menu', 'somn'); ?>"
+      data-open-label="<?php esc_attr_e('Open menu', 'somn'); ?>"
+      data-close-label="<?php esc_attr_e('Close menu', 'somn'); ?>">
       <i class="bi bi-list"></i>
     </button>
 
@@ -51,8 +59,6 @@
 
   <div class="mega-menu" id="megaMenu" aria-hidden="true">
     <div class="mega-inner container-fluid">
-      <button class="menu-close" id="menuClose" type="button" aria-label="<?php esc_attr_e('Close menu', 'somn'); ?>">&times;</button>
-
       <div class="row">
         <div class="col-lg-4 mega-col">
           <h6><?php esc_html_e('Shop', 'somn'); ?></h6>

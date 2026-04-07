@@ -29,15 +29,25 @@ get_header();
 ?>
 
 <main class="site-main">
-  <section class="hero-section">
-    <div class="hero-bg"></div>
+  <section class="hero-section" id="heroScrubSection">
+    <div class="hero-video-scrub" aria-hidden="true">
+      <video
+        id="heroScrubVideo"
+        class="hero-video-scrub__media"
+        muted
+        playsinline
+        preload="auto"
+        poster="<?php echo esc_url(somn_asset_url('img/hero.png')); ?>">
+        <source src="<?php echo esc_url(somn_asset_url('img/vid.mp4')); ?>" type="video/mp4">
+      </video>
+    </div>
     <div class="container hero-content">
       <div class="row w-100">
         <div class="col-lg-7">
-          <h1><?php esc_html_e("There's No Sleep Like SOMN", 'somn'); ?></h1>
+          <h1><?php esc_html_e("There's No Sleep Like SÖMN", 'somn'); ?></h1>
           <p class="herosub"><?php esc_html_e('Complete sleep systems engineered to optimize rest, so you wake refreshed each morning.', 'somn'); ?></p>
           <a href="<?php echo esc_url(somn_get_shop_url()); ?>" class="abtsm2"><?php esc_html_e('Shop Now', 'somn'); ?></a>
-          <a href="<?php echo esc_url(somn_get_page_url('about')); ?>" class="abtsm"><?php esc_html_e('About SOMN', 'somn'); ?></a>
+          <a href="<?php echo esc_url(somn_get_page_url('about')); ?>" class="abtsm"><?php esc_html_e('About SÖMN', 'somn'); ?></a>
         </div>
       </div>
     </div>
@@ -51,7 +61,7 @@ get_header();
           <div>
             <h2><?php the_field('about_heading'); ?></h2>
             <div class="mt-3"><?php the_field('about_description'); ?></div>
-            <a href="<?php echo esc_url(somn_get_page_url('about')); ?>" class="btn review-btn2 mt-3"><?php esc_html_e('Discover SOMN', 'somn'); ?></a>
+            <a href="<?php echo esc_url(somn_get_page_url('about')); ?>" class="btn review-btn2 mt-3"><?php esc_html_e('Discover SÖMN', 'somn'); ?></a>
           </div>
         </div>
         <div class="col-lg-6 d-flex align-items-start justify-content-lg-start mt-lg-0">
@@ -76,10 +86,12 @@ get_header();
 
   <section class="designer-section allbg" style="padding: 0">
     <div class="container-fluid p-0">
-      <div class="text-center mb-5" style="text-align: center">
-        <h2 class="review-title"><?php esc_html_e('Everything works together', 'somn'); ?></h2>
+      <div class="container">
+        <div class="mb-5">
+          <h2 class="review-title"><?php esc_html_e('Everything works together', 'somn'); ?></h2>
 
-        <p class="review-subtitle"><?php esc_html_e('Most people spend weeks researching mattresses, then grab random sheets and pillows and hope it all works together.', 'somn'); ?><br><?php esc_html_e('SOMN systems eliminate the guesswork by pairing each mattress with bedding engineered to optimize breathability, temperature regulation, and support.', 'somn'); ?></p>
+          <p class="review-subtitle"><?php esc_html_e('Premium mattresses with perfectly paired bedding.', 'somn'); ?></p>
+        </div>
       </div>
       <div class="row g-3">
         <div class="col-md-7 p-0">
@@ -163,7 +175,7 @@ get_header();
       <div class="row align-items-center">
         <div class="col-lg-3 mb-4 softly-title">
           <h2><?php esc_html_e('Sleep the way it was meant to be', 'somn'); ?></h2>
-          <p class="review-subtitle"><?php esc_html_e('Premium mattresses with perfectly paired bedding.', 'somn'); ?></p>
+          <p class="review-subtitle"><?php esc_html_e('Most people spend weeks researching mattresses, then grab random sheets and pillows and hope it all works together. SOMN systems eliminate the guesswork by pairing each mattress with bedding engineered to optimize breathability, temperature regulation, and support.', 'somn'); ?></p>
         </div>
         <div class="col-lg-9">
           <div class="row g-4">
@@ -324,5 +336,110 @@ get_header();
     </div>
   </div>
 </div>
+<script>
+  const scrubSection = document.getElementById("heroScrubSection");
+  const scrubVideo = document.getElementById("heroScrubVideo");
+  const clamp = (n, min, max) => Math.max(min, Math.min(n, max));
 
+  let scrubDuration = 0;
+  let scrubMaxTime = 0;
+  let scrubTargetTime = 0;
+  let scrubRafId = null;
+  let scrubLastFrameTime = 0;
+  const scrubEase = 0.12;
+  const scrubPixelsPerSecond = 462;
+
+  function setScrubDistance() {
+    if (!scrubSection || !scrubDuration) return;
+    const scrubDistance = Math.max(scrubDuration * scrubPixelsPerSecond, window.innerHeight * 2);
+    scrubSection.style.minHeight = `${window.innerHeight + scrubDistance}px`;
+  }
+
+  function scrubProgress() {
+    if (!scrubSection) return 0;
+    const rect = scrubSection.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    if (total <= 0) return 0;
+    return clamp(-rect.top / total, 0, 1);
+  }
+
+  function updateScrubVideo(timestamp) {
+    if (!scrubVideo) return;
+    scrubRafId = null;
+    if (!scrubLastFrameTime) scrubLastFrameTime = timestamp;
+    const elapsed = timestamp - scrubLastFrameTime;
+    scrubLastFrameTime = timestamp;
+    const delta = scrubTargetTime - scrubVideo.currentTime;
+
+    if (Math.abs(delta) < 0.003) {
+      scrubVideo.currentTime = scrubTargetTime;
+      return;
+    }
+
+    const easedAmount = 1 - Math.pow(1 - scrubEase, elapsed / 16.67);
+    scrubVideo.currentTime += delta * easedAmount;
+    scrubRafId = requestAnimationFrame(updateScrubVideo);
+  }
+
+  function syncScrubVideo() {
+    if (!scrubVideo || !scrubDuration) return;
+    scrubTargetTime = clamp(scrubProgress() * scrubDuration, 0, scrubMaxTime);
+    if (!scrubRafId) {
+      scrubLastFrameTime = 0;
+      scrubRafId = requestAnimationFrame(updateScrubVideo);
+    }
+  }
+
+  if (scrubSection && scrubVideo) {
+    scrubVideo.loop = false;
+
+    function initScrubVideo() {
+      scrubDuration = scrubVideo.duration || 0;
+      scrubMaxTime = Math.max(scrubDuration - 0.04, 0);
+      scrubVideo.pause();
+      scrubVideo.currentTime = 0;
+      setScrubDistance();
+      syncScrubVideo();
+    }
+
+    if (scrubVideo.readyState >= 1) {
+      initScrubVideo();
+    } else {
+      scrubVideo.addEventListener("loadedmetadata", initScrubVideo, {
+        once: true
+      });
+    }
+
+    window.addEventListener("scroll", syncScrubVideo, {
+      passive: true
+    });
+    window.addEventListener("resize", () => {
+      setScrubDistance();
+      syncScrubVideo();
+    });
+  }
+
+  const proSliderEl = document.querySelector(".proSwiper");
+  if (proSliderEl) {
+    new Swiper(".proSwiper", {
+      loop: true,
+      spaceBetween: 20,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  }
+</script>
 <?php get_footer(); ?>

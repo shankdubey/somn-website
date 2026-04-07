@@ -70,6 +70,9 @@ li {
 section {
   padding: 80px 0;
 }
+a {
+  text-decoration: none;
+}
 .newf {
   font-family: "Trade Gothic Next", sans-serif !important;
 }
@@ -116,6 +119,10 @@ section.small {
   background: #dde3e3;
 }
 
+.side-menu-button.is-open {
+  background: #dde3e3;
+}
+
 .logo-text {
   writing-mode: vertical-rl;
   transform: rotate(-90deg);
@@ -129,7 +136,7 @@ section.small {
   right: 0;
   bottom: 0;
   left: 70px;
-  background: #d9cfbf;
+  background: #fff;
   z-index: 9998;
   transform: translateX(-100%);
   transition: 0.4s ease;
@@ -142,16 +149,6 @@ section.small {
 
 .mega-inner {
   /* padding: 60px; */
-}
-
-.menu-close {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 40px;
-  cursor: pointer;
-  background: transparent;
-  border: none;
 }
 
 .mega-col {
@@ -219,27 +216,39 @@ body {
 /* ---------- HERO ---------- */
 .hero-section {
   position: relative;
-  height: 100vh;
+  min-height: calc(100vh + 8778px);
   color: #fff;
-  overflow: hidden;
+  overflow: visible;
+  padding: 0px !important;
 }
 .w-100 {
   width: 100% !important;
 }
-/* background image */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: url("img/hero.png") center/cover no-repeat;
-  background-position: center bottom;
+/* scrubbed hero video */
+.hero-video-scrub {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
 }
-
-/* overlay */
-.hero-bg::after {
+.hero-video-scrub::after {
   content: "";
   position: absolute;
   inset: 0;
-  /* background: rgba(0, 0, 0, 0.45); */
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+.hero-video-scrub__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* nav */
@@ -270,14 +279,21 @@ body {
 
 /* content */
 .hero-content {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 5;
-  height: 100%;
+  height: 100vh;
   display: flex;
   align-items: end;
   width: 100%;
   margin-left: 70px;
-  margin-bottom: 70px;
+  margin-top: -100vh;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.hero-content a {
+  pointer-events: auto;
 }
 
 .content2 {
@@ -524,13 +540,13 @@ body.video-popup-open {
 /* responsive */
 @media (max-width: 992px) {
   .hero-content h1 {
-    font-size: 56px;
+    font-size: 70px;
   }
 }
 
 @media (max-width: 576px) {
   .hero-content h1 {
-    font-size: 45px;
+    font-size: 70px;
   }
 }
 .mybg {
@@ -717,13 +733,13 @@ body.video-popup-open {
   margin-top: -4px;
 }
 
-.arrow-btn:hover {
+.product-item:hover .arrow-btn {
   background: #fff;
   color: #000;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
 }
 
-.arrow-btn:hover::before {
+.product-item:hover .arrow-btn::before {
   transform: rotate(-45deg);
 }
 
@@ -822,7 +838,6 @@ body.video-popup-open {
 .review-title {
   font-size: 80px;
   font-weight: 500;
-  text-align: center;
 }
 
 .review-title2 {
@@ -896,7 +911,7 @@ img {
 }
 
 .designer-card:hover img {
-  transform: scale(1.03);
+  transform: none;
 }
 .menu-item {
   font-size: 20px;
@@ -1850,7 +1865,7 @@ button {
   color: #fff;
   border: 1px solid #fff;
   padding: 7px 20px 8px 20px;
-  border-radius: 25px;
+  border-radius: 0px;
   font-weight: 600;
 }
 .abtsm2 {
@@ -1859,7 +1874,7 @@ button {
   background: #fff;
   border: 1px solid #fff;
   padding: 7px 20px 8px 20px;
-  border-radius: 25px;
+  border-radius: 0px;
   font-weight: 600;
 }
 .allbg {
@@ -1969,14 +1984,20 @@ button {
     display: flex;
   }
 
+  #vidc .col-lg-6.align-items-start {
+    align-items: stretch !important;
+  }
+
   #vidc .col-lg-6 > div,
   #vidc .hero-side-text,
-  #vidc .hero-side-text > div {
+  #vidc .hero-video-trigger,
+  #vidc .hero-video-frame {
     width: 100%;
     height: 100%;
   }
 
   #vidc .vidd {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -3636,8 +3657,8 @@ button {
     width: 100%;
     height: auto;
     flex-direction: row;
-    bottom: 0;
-    top: auto;
+    /* bottom: 0; */
+    top: 0;
     border-right: 0;
     border-top: 1px solid #cfd4d4;
   }
@@ -3659,7 +3680,7 @@ button {
 
   .hero-content {
     margin-left: 0;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
   }
 }
 

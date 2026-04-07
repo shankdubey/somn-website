@@ -9,20 +9,26 @@
 
   ready(function () {
     var menuToggle = document.getElementById("menuToggle");
-    var menuClose = document.getElementById("menuClose");
     var megaMenu = document.getElementById("megaMenu");
 
-    if (menuToggle && menuClose && megaMenu) {
-      menuToggle.addEventListener("click", function () {
-        megaMenu.classList.add("open");
-        megaMenu.setAttribute("aria-hidden", "false");
-        menuToggle.setAttribute("aria-expanded", "true");
-      });
+    if (menuToggle && megaMenu) {
+      var menuToggleIcon = menuToggle.querySelector("i");
 
-      menuClose.addEventListener("click", function () {
-        megaMenu.classList.remove("open");
-        megaMenu.setAttribute("aria-hidden", "true");
-        menuToggle.setAttribute("aria-expanded", "false");
+      function setMenuState(isOpen) {
+        megaMenu.classList.toggle("open", isOpen);
+        megaMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+        menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        menuToggle.setAttribute("aria-label", isOpen ? menuToggle.dataset.closeLabel : menuToggle.dataset.openLabel);
+        menuToggle.classList.toggle("is-open", isOpen);
+
+        if (menuToggleIcon) {
+          menuToggleIcon.classList.toggle("bi-list", !isOpen);
+          menuToggleIcon.classList.toggle("bi-x", isOpen);
+        }
+      }
+
+      menuToggle.addEventListener("click", function () {
+        setMenuState(!megaMenu.classList.contains("open"));
       });
     }
 
