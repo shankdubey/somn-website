@@ -84,7 +84,7 @@ get_header();
     </div>
   </section>
 
-  <section class="designer-section allbg" style="padding: 0">
+  <section class="designer-section designer-section--desktop allbg" style="padding: 0">
     <div class="container-fluid p-0">
       <div class="container">
         <div class="mb-5">
@@ -165,6 +165,129 @@ get_header();
               <a href="<?php echo esc_url(somn_get_product_url('sci-temp')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="designer-section-mobile allbg">
+    <div class="container">
+      <div class="mb-5">
+        <h2 class="review-title"><?php esc_html_e('Everything works together', 'somn'); ?></h2>
+        <p class="review-subtitle"><?php esc_html_e('Premium mattresses with perfectly paired bedding.', 'somn'); ?></p>
+      </div>
+
+      <div class="designer-mobile-row">
+        <div class="swiper designerRowSlider">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php the_field('cozify_image_left'); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Cozify', 'somn'); ?></h3>
+                  <p><?php the_field('cozify_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('cozify')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($cozify_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Cozify', 'somn'); ?></h3>
+                  <p><?php the_field('cozify_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('cozify')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($cozify_image_hover ? $cozify_image_hover : $cozify_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Cozify', 'somn'); ?></h3>
+                  <p><?php the_field('cozify_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('cozify')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination designer-row-pagination"></div>
+        </div>
+      </div>
+
+      <div class="designer-mobile-row">
+        <div class="swiper designerRowSlider">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($felicity_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Felicity', 'somn'); ?></h3>
+                  <p><?php the_field('felicity_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('felicity')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($felicity_image_hover ? $felicity_image_hover : $felicity_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Felicity', 'somn'); ?></h3>
+                  <p><?php the_field('felicity_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('felicity')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php the_field('felicity_image_right'); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Felicity', 'somn'); ?></h3>
+                  <p><?php the_field('felicity_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('felicity')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination designer-row-pagination"></div>
+        </div>
+      </div>
+
+      <div class="designer-mobile-row">
+        <div class="swiper designerRowSlider">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php the_field('sci-temp_image_left'); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Sci-Temp', 'somn'); ?></h3>
+                  <p><?php the_field('sci-temp_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('sci-temp')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($scitemp_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Sci-Temp', 'somn'); ?></h3>
+                  <p><?php the_field('sci-temp_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('sci-temp')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="designer-mobile-card">
+                <img src="<?php echo esc_url($scitemp_image_hover ? $scitemp_image_hover : $scitemp_image_default); ?>" alt="" />
+                <div class="designer-mobile-overlay">
+                  <h3><?php esc_html_e('Sci-Temp', 'somn'); ?></h3>
+                  <p><?php the_field('sci-temp_text'); ?></p>
+                  <a href="<?php echo esc_url(somn_get_product_url('sci-temp')); ?>" class="overlay-btn"><?php esc_html_e('Shop Now', 'somn'); ?></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination designer-row-pagination"></div>
         </div>
       </div>
     </div>

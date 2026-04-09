@@ -62,6 +62,24 @@
       });
     }
 
+    if (window.Swiper) {
+      document.querySelectorAll(".designerRowSlider").forEach(function (slider) {
+        new Swiper(slider, {
+          slidesPerView: 1,
+          loop: true,
+          speed: 700,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: slider.querySelector(".designer-row-pagination"),
+            clickable: true
+          }
+        });
+      });
+    }
+
     var videoPopup = document.getElementById("heroVideoPopup");
     var videoPlayer = videoPopup ? videoPopup.querySelector("[data-video-popup-player]") : null;
     var videoSource = videoPopup ? videoPopup.querySelector("[data-video-popup-source]") : null;

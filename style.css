@@ -916,6 +916,72 @@ img {
 .designer-card:hover img {
   transform: none;
 }
+.designer-section-mobile {
+  display: none;
+  padding: 0;
+}
+
+.designer-mobile-row {
+  margin-bottom: 18px;
+}
+
+.designer-mobile-card {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.designer-mobile-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 24%, rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+}
+
+.designer-mobile-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.designer-mobile-overlay {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2;
+  color: #fff;
+}
+
+.designer-mobile-overlay h3 {
+  font-size: 52px;
+  line-height: 0.9;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.designer-mobile-overlay p {
+  margin-bottom: 16px;
+  max-width: 280px;
+}
+
+.designer-row-pagination {
+  position: static;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.designer-row-pagination .swiper-pagination-bullet {
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+
+.designer-row-pagination .swiper-pagination-bullet-active {
+  background: #000;
+}
+
 .menu-item {
   font-size: 20px;
 }
@@ -930,6 +996,14 @@ img {
 }
 
 @media (max-width: 767.98px) {
+  .designer-section--desktop {
+    display: none;
+  }
+
+  .designer-section-mobile {
+    display: block;
+  }
+
   .designer-section .row.g-3 {
     --bs-gutter-x: 0;
     --bs-gutter-y: 0.75rem;
@@ -970,6 +1044,42 @@ img {
     font-size: 13px;
   }
 
+  .designer-section-mobile .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .designer-section-mobile .mb-5 {
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .designer-mobile-card {
+    min-height: 360px;
+  }
+
+  .designer-mobile-card img {
+    height: 360px;
+  }
+
+  .designer-mobile-overlay {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .designer-mobile-overlay h3 {
+    font-size: 46px;
+    margin-bottom: 8px;
+  }
+
+  .designer-mobile-overlay p {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 14px;
+  }
+
   .review-section {
     padding: 70px 0;
   }
@@ -1004,9 +1114,21 @@ img {
     min-height: 280px;
   }
 
+  .designer-mobile-card {
+    min-height: 300px;
+  }
+
+  .designer-mobile-card img {
+    height: 300px;
+  }
+
   .card-overlay h3 {
     font-size: clamp(46px, 17vw, 70px);
     /* font-size:; clamp(32px, 14vw, 70px); */
+  }
+
+  .designer-mobile-overlay h3 {
+    font-size: clamp(46px, 17vw, 70px);
   }
 
   .review-title {
