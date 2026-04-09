@@ -266,16 +266,16 @@ get_header();
       </div>
     </div>
 
-    <div class="quality-subsection">
+    <div class="quality-subsection quality-subsection--image-first-mobile">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-lg-6 quality-text-content quality-text-content2 order-lg-1 pr50">
+          <div class="col-lg-6 quality-text-content quality-text-content2 quality-subsection__text order-lg-1 pr50">
             <div class="quality-section-label"><?php esc_html_e('100 Years of Experience', 'somn'); ?></div>
             <h2><?php esc_html_e('100 years of sleep expertise', 'somn'); ?></h2>
             <p><?php esc_html_e('SOMN partners with manufacturers who have spent a century perfecting the craft of quality sleep. That experience shows in every stitch, every layer, every system we deliver.', 'somn'); ?></p>
             <a href="<?php echo esc_url(somn_get_page_url('about')); ?>" class="btn quality-cta-btn"><?php esc_html_e('Learn Our Story', 'somn'); ?></a>
           </div>
-          <div class="col-lg-6 mb-4 mb-lg-0 order-lg-2"><img src="<?php the_field('sleep_expertise_image'); ?>" alt="" class="img-fluid quality-subsection-img" /></div>
+          <div class="col-lg-6 mb-4 mb-lg-0 quality-subsection__image order-lg-2"><img src="<?php the_field('sleep_expertise_image'); ?>" alt="" class="img-fluid quality-subsection-img" /></div>
         </div>
       </div>
     </div>
@@ -348,9 +348,19 @@ get_header();
   let scrubLastFrameTime = 0;
   const scrubEase = 0.12;
   const scrubPixelsPerSecond = 462;
+  const scrubMobileQuery = window.matchMedia("(max-width: 767.98px)");
+
+  function isScrubDisabled() {
+    return scrubMobileQuery.matches;
+  }
 
   function setScrubDistance() {
     if (!scrubSection || !scrubDuration) return;
+    if (isScrubDisabled()) {
+      scrubSection.style.minHeight = "";
+      return;
+    }
+
     const scrubDistance = Math.max(scrubDuration * scrubPixelsPerSecond, window.innerHeight * 2);
     scrubSection.style.minHeight = `${window.innerHeight + scrubDistance}px`;
   }
@@ -364,7 +374,7 @@ get_header();
   }
 
   function updateScrubVideo(timestamp) {
-    if (!scrubVideo) return;
+    if (!scrubVideo || isScrubDisabled()) return;
     scrubRafId = null;
     if (!scrubLastFrameTime) scrubLastFrameTime = timestamp;
     const elapsed = timestamp - scrubLastFrameTime;
@@ -382,7 +392,7 @@ get_header();
   }
 
   function syncScrubVideo() {
-    if (!scrubVideo || !scrubDuration) return;
+    if (!scrubVideo || !scrubDuration || isScrubDisabled()) return;
     scrubTargetTime = clamp(scrubProgress() * scrubDuration, 0, scrubMaxTime);
     if (!scrubRafId) {
       scrubLastFrameTime = 0;
@@ -399,6 +409,7 @@ get_header();
       scrubVideo.pause();
       scrubVideo.currentTime = 0;
       setScrubDistance();
+      if (isScrubDisabled()) return;
       syncScrubVideo();
     }
 
@@ -413,10 +424,27 @@ get_header();
     window.addEventListener("scroll", syncScrubVideo, {
       passive: true
     });
-    window.addEventListener("resize", () => {
+    function handleScrubResize() {
+      if (scrubRafId && isScrubDisabled()) {
+        cancelAnimationFrame(scrubRafId);
+        scrubRafId = null;
+      }
+
       setScrubDistance();
+      if (isScrubDisabled()) {
+        scrubVideo.pause();
+        scrubVideo.currentTime = 0;
+        return;
+      }
+
       syncScrubVideo();
-    });
+    }
+
+    window.addEventListener("resize", handleScrubResize);
+
+    if (scrubMobileQuery.addEventListener) {
+      scrubMobileQuery.addEventListener("change", handleScrubResize);
+    }
   }
 
   const proSliderEl = document.querySelector(".proSwiper");
