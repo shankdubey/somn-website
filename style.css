@@ -424,8 +424,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
+  width: 25px;
+  height: 25px;
   border: 0;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
@@ -440,9 +440,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 34px;
+  font-size: 20px;
   line-height: 1;
-  transform: rotate(45deg);
 }
 .hero-video-popup__close:hover,
 .hero-video-popup__close:focus-visible {
@@ -935,7 +934,11 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 24%, rgba(0, 0, 0, 0.65) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.04) 24%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
   pointer-events: none;
 }
 

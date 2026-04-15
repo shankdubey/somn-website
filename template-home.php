@@ -88,9 +88,9 @@ get_header();
     <div class="container-fluid p-0">
       <div class="container">
         <div class="mb-5">
-          <h2 class="review-title"><?php esc_html_e('Everything works together', 'somn'); ?></h2>
+          <h2 class="review-title"><?php esc_html_e('SLEEP THE WAY IT WAS MEANT TO BE', 'somn'); ?></h2>
 
-          <p class="review-subtitle"><?php esc_html_e('Premium mattresses with perfectly paired bedding.', 'somn'); ?></p>
+          <p class="review-subtitle"><?php esc_html_e('Most people spend weeks researching mattresses, then grab random sheets and pillows and hope it all works together. SOMN systems eliminate the guesswork by pairing each mattress with bedding engineered to optimize breathability, temperature regulation, and support.', 'somn'); ?></p>
         </div>
       </div>
       <div class="row g-3">
@@ -173,8 +173,8 @@ get_header();
   <section class="designer-section-mobile allbg">
     <div class="container">
       <div class="mb-5">
-        <h2 class="review-title"><?php esc_html_e('Everything works together', 'somn'); ?></h2>
-        <p class="review-subtitle"><?php esc_html_e('Premium mattresses with perfectly paired bedding.', 'somn'); ?></p>
+        <h2 class="review-title"><?php esc_html_e('SLEEP THE WAY IT WAS MEANT TO BE', 'somn'); ?></h2>
+        <p class="review-subtitle"><?php esc_html_e('Most people spend weeks researching mattresses, then grab random sheets and pillows and hope it all works together. SOMN systems eliminate the guesswork by pairing each mattress with bedding engineered to optimize breathability, temperature regulation, and support.', 'somn'); ?></p>
       </div>
 
       <div class="designer-mobile-row">
@@ -296,11 +296,11 @@ get_header();
   <section class="softly-section">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-lg-3 mb-4 softly-title">
-          <h2><?php esc_html_e('Sleep the way it was meant to be', 'somn'); ?></h2>
-          <p class="review-subtitle"><?php esc_html_e('Most people spend weeks researching mattresses, then grab random sheets and pillows and hope it all works together. SOMN systems eliminate the guesswork by pairing each mattress with bedding engineered to optimize breathability, temperature regulation, and support.', 'somn'); ?></p>
+        <div class="col-12 mb-4 softly-title">
+          <h2><?php esc_html_e('CHOOSE YOUR FOUNDATION', 'somn'); ?></h2>
+          <p class="review-subtitle"><?php esc_html_e('Not every sleeper is the same. Explore our range of mattresses, each crafted with specific materials and performance in mind—so you can find the one that fits you best.', 'somn'); ?></p>
         </div>
-        <div class="col-lg-9">
+        <div class="col-12">
           <div class="row g-4">
             <?php $home_products = class_exists('WooCommerce') ? new WP_Query(array('post_type' => 'product', 'posts_per_page' => 4)) : null; ?>
             <?php if ($home_products && $home_products->have_posts()) : ?>
@@ -436,8 +436,8 @@ get_header();
 <div class="hero-video-popup" id="heroVideoPopup" aria-hidden="true">
   <div class="hero-video-popup__backdrop" data-video-popup-close></div>
   <div class="hero-video-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="heroVideoPopupTitle">
-    <button type="button" class="hero-video-popup__close" data-video-popup-close aria-label="<?php esc_attr_e('Close video popup', 'somn'); ?>">
-      <span aria-hidden="true">+</span>
+    <button style="padding:20px" type="button" class="hero-video-popup__close" data-video-popup-close aria-label="<?php esc_attr_e('Close video popup', 'somn'); ?>">
+      <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
     </button>
 
     <div class="hero-video-popup__player-shell">
@@ -452,7 +452,7 @@ get_header();
           controls
           playsinline
           preload="metadata"
-          poster="<?php echo esc_url(somn_asset_url('img/vid.png')); ?>">
+          poster="#">
           <source data-video-popup-source src="" type="video/mp4">
         </video>
       </div>
@@ -547,6 +547,7 @@ get_header();
     window.addEventListener("scroll", syncScrubVideo, {
       passive: true
     });
+
     function handleScrubResize() {
       if (scrubRafId && isScrubDisabled()) {
         cancelAnimationFrame(scrubRafId);
